@@ -1,0 +1,9 @@
+﻿@model List<Car>
+
+@foreach (var car in Model)
+{
+    @if (car.IsActive)
+    {
+        @await Html.PartialAsync("_Car", car)
+    }
+}

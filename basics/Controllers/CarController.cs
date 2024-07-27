@@ -5,13 +5,21 @@ namespace basics.Controllers
 {
     public class CarController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Details(int? id)
         {
-            var car = new Car();
-            car.Id = 1;
-            car.Brand = "tesla";
-            car.Model = "model y";
-            return View(car);
+            if (id == null)
+            {
+                return RedirectToAction("List", "Car");
+            }
+
+            var cars = Repository.GetById(id);
+
+            return View(cars);
+        }
+
+        public IActionResult List()
+        {
+            return View("CarList", Repository.Cars);
         }
     }
 }

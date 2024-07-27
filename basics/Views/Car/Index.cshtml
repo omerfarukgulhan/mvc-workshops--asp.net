@@ -1,6 +1,3 @@
-﻿@model Car;
-<div>
-    <p>@Model.Id</p>
-    <p>@Model.Brand</p>
-    <p>@Model.Model</p>
-</div>
+﻿@model Car
+
+@await Html.PartialAsync("_Car", @Model)
