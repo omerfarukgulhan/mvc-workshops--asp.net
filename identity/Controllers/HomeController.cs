@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using identity.Models;
-using identity.Data;
 
 namespace identity.Controllers;
 
