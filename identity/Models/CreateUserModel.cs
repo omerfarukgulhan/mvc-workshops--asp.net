@@ -5,7 +5,7 @@ namespace identity.Models
     public class CreateUserModel
     {
         [Required]
-        public string UserName { get; set; }
+        public string FullName { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }
