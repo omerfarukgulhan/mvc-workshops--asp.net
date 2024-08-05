@@ -2,16 +2,19 @@
 using identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace identity.Controllers
 {
     public class UsersController : Controller
     {
         private UserManager<AppUser> _userManager;
+        private RoleManager<AppRole> _roleManager;
 
-        public UsersController(UserManager<AppUser> userManager)
+        public UsersController(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -56,11 +59,14 @@ namespace identity.Controllers
 
             if (user != null)
             {
+                ViewBag.Roles = await _roleManager.Roles.Select(i => i.Name).ToListAsync();
+
                 return View(new EditUserModel
                 {
                     Id = user.Id,
                     FullName = user.FullName,
-                    Email = user.Email
+                    Email = user.Email,
+                    SelectedRoles = await _userManager.GetRolesAsync(user)
                 });
             }
 
@@ -83,6 +89,7 @@ namespace identity.Controllers
                 {
                     user.Email = model.Email;
                     user.FullName = model.FullName;
+
                     var result = await _userManager.UpdateAsync(user);
 
                     if (result.Succeeded && !string.IsNullOrEmpty(model.Password))
@@ -93,6 +100,11 @@ namespace identity.Controllers
 
                     if (result.Succeeded)
                     {
+                        await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));
+                        if (model.SelectedRoles != null)
+                        {
+                            await _userManager.AddToRolesAsync(user, model.SelectedRoles);
+                        }
                         return RedirectToAction("Index");
                     }
 
