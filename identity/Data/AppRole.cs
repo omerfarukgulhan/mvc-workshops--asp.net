@@ -2,7 +2,7 @@
 
 namespace identity.Data
 {
-    public class AppRole:IdentityRole
+    public class AppRole : IdentityRole
     {
     }
 }

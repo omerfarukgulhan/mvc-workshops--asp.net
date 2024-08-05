@@ -56,7 +56,7 @@ namespace identity.Controllers
 
             if (user != null)
             {
-                return View(new EditViewModel
+                return View(new EditUserModel
                 {
                     Id = user.Id,
                     FullName = user.FullName,
@@ -68,7 +68,7 @@ namespace identity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string id, EditViewModel model)
+        public async Task<IActionResult> Edit(string id, EditUserModel model)
         {
             if (id != model.Id)
             {

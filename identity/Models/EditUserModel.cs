@@ -2,7 +2,7 @@
 
 namespace identity.Models
 {
-    public class EditViewModel
+    public class EditUserModel
     {
         public string Id { get; set; }
         public string FullName { get; set; }
