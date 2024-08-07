@@ -1,13 +1,18 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using identity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace identity.Controllers;
 
+[Authorize]
 public class HomeController : Controller
 {
-    public HomeController()
+    private readonly ILogger<HomeController> _logger;
+
+    public HomeController(ILogger<HomeController> logger)
     {
+        _logger = logger;
     }
 
     public IActionResult Index()

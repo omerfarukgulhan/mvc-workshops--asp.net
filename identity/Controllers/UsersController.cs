@@ -1,11 +1,13 @@
-﻿using identity.Data;
+using identity.Data;
 using identity.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace identity.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class UsersController : Controller
     {
         private UserManager<AppUser> _userManager;
@@ -20,32 +22,6 @@ namespace identity.Controllers
         public IActionResult Index()
         {
             return View(_userManager.Users);
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateUserModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new AppUser { UserName = model.Email, Email = model.Email, FullName = model.FullName };
-                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-
-                foreach (IdentityError err in result.Errors)
-                {
-                    ModelState.AddModelError("", err.Description);
-                }
-            }
-            return View(model);
         }
 
         public async Task<IActionResult> Edit(string id)

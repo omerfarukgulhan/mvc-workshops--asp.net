@@ -1,4 +1,4 @@
-﻿@model AppRole
+@model AppRole
 
 <h2>Edit Role</h2>
 <hr>
@@ -23,13 +23,13 @@
         </tr>
     </thead>
     <tbody>
-        @if (ViewBag.Users != null)
+        @if(ViewBag.Users != null)
         {
-            @if (ViewBag.Users.Count == 0)
+            @if(ViewBag.Users.Count == 0)
             {
                 <tr><td colspan="4" class="text-center">User Yok</td></tr>
             }
-            @foreach (var user in ViewBag.Users)
+            @foreach(var user in ViewBag.Users)
             {
                 <tr>
                     <td>@user.Id</td>

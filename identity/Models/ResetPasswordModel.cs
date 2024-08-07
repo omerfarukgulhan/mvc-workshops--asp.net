@@ -1,15 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace identity.Models
 {
-    public class CreateUserModel
+    public class ResetPasswordModel
     {
         [Required]
-        public string FullName { get; set; } = string.Empty;
+        public string Token { get; set; } = string.Empty;
         [Required]
-        public string UserName { get; set; } = string.Empty;
-        [Required]
-        [EmailAddress]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = string.Empty;
         [Required]
         [DataType(DataType.Password)]

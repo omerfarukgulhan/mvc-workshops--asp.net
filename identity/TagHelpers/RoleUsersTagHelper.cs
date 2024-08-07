@@ -45,7 +45,6 @@ namespace identity.TagHelpers
                 html += "<li>" + item + "</li>";
             }
             html += "</ul>";
-
             return html;
         }
     }
